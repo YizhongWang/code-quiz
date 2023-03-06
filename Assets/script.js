@@ -43,6 +43,7 @@ var buttonD = document.getElementById("answer-D");
 startButton.addEventListener("click", function () {
 
   startQuiz();
+  setTime();
 })
 var questionIndex = 0;
 function startQuiz() {
@@ -53,16 +54,61 @@ function startQuiz() {
   buttonC.textContent = questions[questionIndex].answers[2]
   buttonD.textContent = questions[questionIndex].answers[3]
 }
+
+var timeEl = document.querySelector(".time");
+
+
+var secondsLeft = 15;
+
+function setTime() {
+  // Sets interval in variable
+  var timerInterval = setInterval(function() {
+    secondsLeft--;
+    timeEl.textContent = secondsLeft + " seconds left till colorsplosion.";
+
+    if(secondsLeft === 0) {
+      // Stops execution of action at set interval
+      clearInterval(timerInterval);
+      // Calls function to create and append image
+      
+    }
+
+  }, 1000);
+}
+
+
+
+
+
+
+
+var trackingScore=0;
+
 function correctAnswer(event) {
 console.log (event.target)
   if (event.target.textContent == questions[questionIndex].correctAnswer) {
     console.log("correct");
+    trackingScore++;
   }
  
   else {
     console.log("wrong");
   }
+  questionIndex++;
+if(questionIndex>=questions.length){
+  score();
   return;
+}
+  startQuiz();
+
+  return;
+}
+
+function score(){
+
+  var number = document.querySelector(".grade");
+  number.textContent="You got: "+trackingScore+"questions correct";
+  
 }
 console.log(correctAnswer);
 buttonA.addEventListener ("click",correctAnswer);
